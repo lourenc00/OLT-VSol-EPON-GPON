@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<zabbix_export>
+    <version>6.4</version>
+    <template_groups>
+        <template_group>
+            <uuid>7df96b18c230490a9a0a9e2307226338</uuid>
+            <name>Templates</name>
+        </template_group>
+    </template_groups>
+    <templates>
+        <template>
+            <uuid>b9e62cb8a54c4e3aaf09266fa1663bcb</uuid>
+            <template>Template OLT VSOL Epon - Lourenc00z</template>
+            <name>Template OLT VSOL Epon - Lourenc00z</name>
+            <groups>
+                <group>
+                    <name>Templates</name>
+                </group>
+            </groups>
+            <items>
+                <item>
+                    <uuid>1d2d7744fd6c49e9a07576951d1091c1</uuid>
+                    <name>Uptime</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.2.1.1.3.0</snmp_oid>
+                    <key>1.3.6.1.2.1.1.3.0</key>
+                    <units>uptime</units>
+                    <preprocessing>
+                        <step>
+                            <type>MULTIPLIER</type>
+                            <parameters>
+                                <parameter>0.01</parameter>
+                            </parameters>
+                        </step>
+                    </preprocessing>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Uptime</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>ebafdb8461a540b5bedd7f8da0a1110b</uuid>
+                    <name>Uso de CPU</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.37950.1.1.5.10.12.3.0</snmp_oid>
+                    <key>1.3.6.1.4.1.37950.1.1.5.10.12.3.0</key>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>CPU</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>3d6fd5a080c7407fa68d6c686ca0e517</uuid>
+                    <name>Uso de Memoria</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.37950.1.1.5.10.12.4.0</snmp_oid>
+                    <key>1.3.6.1.4.1.37950.1.1.5.10.12.4.0</key>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Memoria</value>
+                        </tag>
+                    </tags>
+                </item>
+                <item>
+                    <uuid>61c5103cb85b463fb76abe2f2dd2ce22</uuid>
+                    <name>Temperatura</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>1.3.6.1.4.1.37950.1.1.5.10.12.5.9.0</snmp_oid>
+                    <key>1.3.6.1.4.1.37950.1.1.5.10.12.5.9.0</key>
+                    <units>C</units>
+                    <tags>
+                        <tag>
+                            <tag>Application</tag>
+                            <value>Temperatura</value>
+                        </tag>
+                    </tags>
+                </item>
+            </items>
+            <discovery_rules>
+                <discovery_rule>
+                    <uuid>dc05076f8aff471dacfc6ea4fde15e82</uuid>
+                    <name>Descoberta de Interfaces PON</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#SNMPDESC},1.3.6.1.4.1.37950.1.1.5.10.1.2.1.1.2]</snmp_oid>
+                    <key>descoberta.interfaces.pon.bee</key>
+                    <delay>5m</delay>
+                    <item_prototypes>
+                        <item_prototype>
+                            <uuid>be2b84b2df6e4af4ad251c1c06aa170a</uuid>
+                            <name>Interface [{#SNMPDESC}]: Autorizadas</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.37950.1.1.5.12.1.27.1.2.{#SNMPINDEX}</snmp_oid>
+                            <key>1.3.6.1.4.1.37950.1.1.5.12.1.27.1.2.[{#SNMPINDEX}]</key>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>PON Autorizadas</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>ff389994d08649b6baf9af533d5a42c8</uuid>
+                            <name>Interface [{#SNMPDESC}]: Onlines</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.4.1.37950.1.1.5.12.1.27.1.3.{#SNMPINDEX}</snmp_oid>
+                            <key>1.3.6.1.4.1.37950.1.1.5.12.1.27.1.3.[{#SNMPINDEX}]</key>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>PON Onlines</value>
+                                </tag>
+                            </tags>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>b22d900597fc4206b195a699e616c863</uuid>
+                                    <expression>((last(/Template OLT VSOL Epon - Lourenc00z/1.3.6.1.4.1.37950.1.1.5.12.1.27.1.3.[{#SNMPINDEX}],#2)+0.1)
+-
+last(/Template OLT VSOL Epon - Lourenc00z/1.3.6.1.4.1.37950.1.1.5.12.1.27.1.3.[{#SNMPINDEX}]))
+/
+(last(/Template OLT VSOL Epon - Lourenc00z/1.3.6.1.4.1.37950.1.1.5.12.1.27.1.3.[{#SNMPINDEX}],#2)+0.1)*100&gt;={$LIMITE_QUEDA}
+and 
+change(/Template OLT VSOL Epon - Lourenc00z/1.3.6.1.4.1.37950.1.1.5.12.1.27.1.3.[{#SNMPINDEX}])&lt;=-5</expression>
+                                    <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                                    <recovery_expression>((last(/Template OLT VSOL Epon - Lourenc00z/1.3.6.1.4.1.37950.1.1.5.12.1.27.1.3.[{#SNMPINDEX}],#2)+0.1)
+-
+last(/Template OLT VSOL Epon - Lourenc00z/1.3.6.1.4.1.37950.1.1.5.12.1.27.1.3.[{#SNMPINDEX}]))
+/
+(last(/Template OLT VSOL Epon - Lourenc00z/1.3.6.1.4.1.37950.1.1.5.12.1.27.1.3.[{#SNMPINDEX}],#2)+0.1)*100&lt;={$LIMITE_QUEDA}
+and
+last(/Template OLT VSOL Epon - Lourenc00z/1.3.6.1.4.1.37950.1.1.5.12.1.27.1.3.[{#SNMPINDEX}])&gt;=
+avg(/Template OLT VSOL Epon - Lourenc00z/1.3.6.1.4.1.37950.1.1.5.12.1.27.1.3.[{#SNMPINDEX}],12h)</recovery_expression>
+                                    <name>Possivel Queda Massiva de ONUs Onlines (-{$LIMITE_QUEDA}): {#SNMPDESC}</name>
+                                    <priority>AVERAGE</priority>
+                                    <manual_close>YES</manual_close>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>de406789dba84aa3be633b1dedc31afa</uuid>
+                            <name>Interface [{#SNMPDESC}]: Offlines</name>
+                            <type>CALCULATED</type>
+                            <key>calculado.onus.off.[{#SNMPINDEX}]</key>
+                            <params>last(//1.3.6.1.4.1.37950.1.1.5.12.1.27.1.2.[{#SNMPINDEX}])
+-
+last(//1.3.6.1.4.1.37950.1.1.5.12.1.27.1.3.[{#SNMPINDEX}])</params>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>PON Offlines</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                    </item_prototypes>
+                </discovery_rule>
+                <discovery_rule>
+                    <uuid>656cb9c35b7245e8986e4823a1ca3819</uuid>
+                    <name>Network Interfaces Discovery</name>
+                    <type>SNMP_AGENT</type>
+                    <snmp_oid>discovery[{#IFALIAS},1.3.6.1.2.1.31.1.1.1.18,{#IFNAME},1.3.6.1.2.1.31.1.1.1.1,{#IFTYPE},1.3.6.1.2.1.2.2.1.3]</snmp_oid>
+                    <key>net.if.discovery</key>
+                    <delay>5m</delay>
+                    <filter>
+                        <evaltype>OR</evaltype>
+                        <conditions>
+                            <condition>
+                                <macro>{#IFALIAS}</macro>
+                                <value>EPON0/</value>
+                                <formulaid>A</formulaid>
+                            </condition>
+                            <condition>
+                                <macro>{#IFTYPE}</macro>
+                                <value>6</value>
+                                <formulaid>B</formulaid>
+                            </condition>
+                        </conditions>
+                    </filter>
+                    <lifetime>0</lifetime>
+                    <description>Discovering interfaces from IF-MIB. Interfaces are not discovered:
+- with down(2) Administrative status
+- with notPresent(6) Operational status
+- loopbacks</description>
+                    <item_prototypes>
+                        <item_prototype>
+                            <uuid>3ed8ff75a5914e83a3440439775cdb24</uuid>
+                            <name>Interface {#IFNAME}({#IFALIAS}): Bits received</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.31.1.1.1.6.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.in[ifHCInOctets.{#SNMPINDEX}]</key>
+                            <delay>3m</delay>
+                            <units>bps</units>
+                            <description>MIB: IF-MIB
+The total number of octets received on the interface,including framing characters.  This object is a 64-bit version of ifInOctets. Discontinuities in the value of this counter can occur at re-initialization of the management system, and at other times as indicated by the value of ifCounterDiscontinuityTime.</description>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <parameters>
+                                        <parameter/>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <parameters>
+                                        <parameter>8</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Network interfaces</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>182132df6eac460790ce7176575aa28c</uuid>
+                            <name>Interface {#IFNAME}({#IFALIAS}): Bits sent</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.31.1.1.1.10.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.out[ifHCOutOctets.{#SNMPINDEX}]</key>
+                            <delay>3m</delay>
+                            <history>30d</history>
+                            <trends>30d</trends>
+                            <units>bps</units>
+                            <description>MIB: IF-MIB
+The total number of octets transmitted out of the interface, including framing characters.  This object is a 64-bit version of ifOutOctets.Discontinuities in the value of this counter can occur at re-initialization of the management system, and at other times as indicated by the value of ifCounterDiscontinuityTime.</description>
+                            <preprocessing>
+                                <step>
+                                    <type>CHANGE_PER_SECOND</type>
+                                    <parameters>
+                                        <parameter/>
+                                    </parameters>
+                                </step>
+                                <step>
+                                    <type>MULTIPLIER</type>
+                                    <parameters>
+                                        <parameter>8</parameter>
+                                    </parameters>
+                                </step>
+                            </preprocessing>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Network interfaces</value>
+                                </tag>
+                            </tags>
+                        </item_prototype>
+                        <item_prototype>
+                            <uuid>369c230921834566b4bf0768f0faea44</uuid>
+                            <name>Interface {#IFNAME}({#IFALIAS}): Operational status</name>
+                            <type>SNMP_AGENT</type>
+                            <snmp_oid>1.3.6.1.2.1.2.2.1.8.{#SNMPINDEX}</snmp_oid>
+                            <key>net.if.status[ifOperStatus.{#SNMPINDEX}]</key>
+                            <history>2w</history>
+                            <trends>0d</trends>
+                            <description>MIB: IF-MIB
+The current operational state of the interface.
+- The testing(3) state indicates that no operational packet scan be passed
+- If ifAdminStatus is down(2) then ifOperStatus should be down(2)
+- If ifAdminStatus is changed to up(1) then ifOperStatus should change to up(1) if the interface is ready to transmit and receive network traffic
+- It should change todormant(5) if the interface is waiting for external actions (such as a serial line waiting for an incoming connection)
+- It should remain in the down(2) state if and only if there is a fault that prevents it from going to the up(1) state
+- It should remain in the notPresent(6) state if the interface has missing(typically, hardware) components.</description>
+                            <tags>
+                                <tag>
+                                    <tag>Application</tag>
+                                    <value>Network interfaces</value>
+                                </tag>
+                            </tags>
+                            <trigger_prototypes>
+                                <trigger_prototype>
+                                    <uuid>35fa612b98534d6fa643b36b14b30f8a</uuid>
+                                    <expression>{$IFCONTROL:&quot;{#IFNAME}&quot;}=1 and (last(/Template OLT VSOL Epon - Lourenc00z/net.if.status[ifOperStatus.{#SNMPINDEX}])=2 and (last(/Template OLT VSOL Epon - Lourenc00z/net.if.status[ifOperStatus.{#SNMPINDEX}],#1)&lt;&gt;last(/Template OLT VSOL Epon - Lourenc00z/net.if.status[ifOperStatus.{#SNMPINDEX}],#2))=1)</expression>
+                                    <recovery_mode>RECOVERY_EXPRESSION</recovery_mode>
+                                    <recovery_expression>last(/Template OLT VSOL Epon - Lourenc00z/net.if.status[ifOperStatus.{#SNMPINDEX}])&lt;&gt;2</recovery_expression>
+                                    <name>Interface {#IFNAME}({#IFALIAS}): Link down</name>
+                                    <status>DISABLED</status>
+                                    <discover>NO_DISCOVER</discover>
+                                    <priority>AVERAGE</priority>
+                                    <description>Last value: {ITEM.LASTVALUE1}.
+Interface is down</description>
+                                </trigger_prototype>
+                            </trigger_prototypes>
+                        </item_prototype>
+                    </item_prototypes>
+                    <graph_prototypes>
+                        <graph_prototype>
+                            <uuid>ad667f6e91434e85b68ce7c50b21a653</uuid>
+                            <name>Interface {#IFNAME}({#IFALIAS}): Network traffic</name>
+                            <graph_items>
+                                <graph_item>
+                                    <drawtype>GRADIENT_LINE</drawtype>
+                                    <color>1A7C11</color>
+                                    <item>
+                                        <host>Template OLT VSOL Epon - Lourenc00z</host>
+                                        <key>net.if.in[ifHCInOctets.{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                                <graph_item>
+                                    <sortorder>1</sortorder>
+                                    <drawtype>BOLD_LINE</drawtype>
+                                    <color>2774A4</color>
+                                    <item>
+                                        <host>Template OLT VSOL Epon - Lourenc00z</host>
+                                        <key>net.if.out[ifHCOutOctets.{#SNMPINDEX}]</key>
+                                    </item>
+                                </graph_item>
+                            </graph_items>
+                        </graph_prototype>
+                    </graph_prototypes>
+                </discovery_rule>
+            </discovery_rules>
+            <macros>
+                <macro>
+                    <macro>{$LIMITE_QUEDA}</macro>
+                    <value>40</value>
+                </macro>
+            </macros>
+        </template>
+    </templates>
+</zabbix_export>
